@@ -11,4 +11,14 @@
         <maven.compiler.target>20</maven.compiler.target>
         <exec.mainClass>com.mycompany.serviciosapi.ServiciosAPI</exec.mainClass>
     </properties>
+    
+    
+    
+    <dependencies>
+        <dependency> 
+            <groupId>org.json</groupId> 
+            <artifactId>json</artifactId> <!-- Dependencia para OMDB buscador de películas -->
+            <version>20210307</version> 
+        </dependency>
+    </dependencies>
 </project>
