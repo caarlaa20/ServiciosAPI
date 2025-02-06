@@ -17,7 +17,7 @@
     <dependencies>
         <dependency> 
             <groupId>org.json</groupId> 
-            <artifactId>json</artifactId> <!-- Dependencia para OMDB buscador de películas -->
+            <artifactId>json</artifactId> <!-- Dependencia para HTTP -->
             <version>20220320</version> 
         </dependency>
         <dependency>
@@ -26,5 +26,27 @@
             <version>1.1.1</version>
             <type>jar</type>
         </dependency>
+        
+        <dependency>
+            <groupId>commons-net</groupId>
+            <artifactId>commons-net</artifactId> <!-- Dependencia para FTP -->
+            <version>3.8.0</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.11.0</version>
+            <type>jar</type>
+        </dependency>
     </dependencies>
+    
+    <repositories>
+    <repository>
+        <id>central</id>
+        <url>https://repo.maven.apache.org/maven2</url>
+    </repository>
+</repositories>
+
+
+
 </project>
