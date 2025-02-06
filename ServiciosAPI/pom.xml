@@ -18,7 +18,13 @@
         <dependency> 
             <groupId>org.json</groupId> 
             <artifactId>json</artifactId> <!-- Dependencia para OMDB buscador de películas -->
-            <version>20210307</version> 
+            <version>20220320</version> 
+        </dependency>
+        <dependency>
+            <groupId>com.googlecode.json-simple</groupId>
+            <artifactId>json-simple</artifactId>
+            <version>1.1.1</version>
+            <type>jar</type>
         </dependency>
     </dependencies>
 </project>

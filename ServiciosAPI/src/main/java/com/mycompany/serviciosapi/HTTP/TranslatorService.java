@@ -8,18 +8,22 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import org.json.JSONArray;
 
 /**
  *
- * @author Andrea R, Patri, Carla
+ * @author alumno
  */
-public class MovieService {
+public class TranslatorService {
     
-   private static final String API_KEY = "TU_API_KEY"; // Reemplaza con tu API Key
+private static final String API_URL = "https://translate.googleapis.com/translate_a/single?client=gtx&sl=";
 
-    public static Movie getMovie(String title) {
+    public static String translate(String text, String sourceLang, String targetLang) {
         try {
-            String urlString = "http://www.omdbapi.com/?t=" + title.replace(" ", "+") + "&apikey=" + API_KEY;
+            String encodedText = URLEncoder.encode(text, StandardCharsets.UTF_8);
+            String urlString = API_URL + sourceLang + "&tl=" + targetLang + "&dt=t&q=" + encodedText;
             URL url = new URL(urlString);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
@@ -33,22 +37,13 @@ public class MovieService {
             }
             in.close();
 
-            JSONObject json = new JSONObject(response.toString());
-            if (json.has("Response") && json.getString("Response").equals("False")) {
-                return null;
-            }
+            // Procesar la respuesta JSON
+            JSONArray jsonArray = new JSONArray(response.toString());
+            return jsonArray.getJSONArray(0).getJSONArray(0).getString(0);
 
-            return new Movie(
-                json.getString("Titulo"),
-                json.getString("Anyo"),
-                json.getString("Director"),
-                json.getString("Actores"),
-                json.getString("Sinopsis"),
-                json.getString("Poster")
-            );
         } catch (Exception e) {
             e.printStackTrace();
-            return null;
+            return "Error en la traducción.";
         }
     }
 }

@@ -4,6 +4,8 @@
  */
 package com.mycompany.serviciosapi.HTTP;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author alumno
@@ -15,6 +17,16 @@ public class InterfazHTTP extends javax.swing.JFrame {
      */
     public InterfazHTTP() {
         initComponents();
+        
+        TextoOriginal.setLineWrap(true);
+        TextoOriginal.setWrapStyleWord(true);
+        TextoTraducido.setLineWrap(true);
+        TextoTraducido.setWrapStyleWord(true);
+
+        jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        jScrollPane2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
+        TextoTraducido.setEditable(false);
     }
 
     /**
@@ -28,71 +40,157 @@ public class InterfazHTTP extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        Buscar = new javax.swing.JButton();
-        BuscardorT = new javax.swing.JTextField();
+        Salir = new javax.swing.JButton();
+        Traducir = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        InformacionPeli = new javax.swing.JTextArea();
+        TextoOriginal = new javax.swing.JTextArea();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        TextoTraducido = new javax.swing.JTextArea();
+        Limpiar = new javax.swing.JButton();
+        IdiomaO = new javax.swing.JComboBox<>();
+        IdiomaD = new javax.swing.JComboBox<>();
+        IdiomaOText = new javax.swing.JLabel();
+        IdiomaDText = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jPanel2.setBackground(new java.awt.Color(0, 0, 0));
+        jPanel2.setBackground(new java.awt.Color(204, 204, 255));
+
+        Salir.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        Salir.setText("Salir");
+        Salir.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                SalirMouseClicked(evt);
+            }
+        });
+        Salir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SalirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(519, 519, 519)
+                .addComponent(Salir, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 163, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(57, Short.MAX_VALUE)
+                .addComponent(Salir)
+                .addGap(51, 51, 51))
         );
 
-        Buscar.setBackground(new java.awt.Color(0, 0, 0));
-        Buscar.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
-        Buscar.setForeground(new java.awt.Color(255, 255, 255));
-        Buscar.setText("Buscar");
-        Buscar.addMouseListener(new java.awt.event.MouseAdapter() {
+        Traducir.setBackground(new java.awt.Color(204, 204, 255));
+        Traducir.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        Traducir.setText("Traducir");
+        Traducir.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                BuscarMouseClicked(evt);
+                TraducirMouseClicked(evt);
             }
         });
 
-        BuscardorT.setBackground(new java.awt.Color(204, 204, 204));
+        TextoOriginal.setBackground(new java.awt.Color(204, 204, 255));
+        TextoOriginal.setColumns(20);
+        TextoOriginal.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        TextoOriginal.setRows(5);
+        jScrollPane1.setViewportView(TextoOriginal);
 
-        InformacionPeli.setColumns(20);
-        InformacionPeli.setRows(5);
-        jScrollPane1.setViewportView(InformacionPeli);
+        TextoTraducido.setBackground(new java.awt.Color(204, 204, 255));
+        TextoTraducido.setColumns(20);
+        TextoTraducido.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        TextoTraducido.setRows(5);
+        jScrollPane2.setViewportView(TextoTraducido);
+
+        Limpiar.setBackground(new java.awt.Color(204, 204, 255));
+        Limpiar.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        Limpiar.setText("Limpiar");
+        Limpiar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                LimpiarMouseClicked(evt);
+            }
+        });
+        Limpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                LimpiarActionPerformed(evt);
+            }
+        });
+
+        IdiomaO.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        IdiomaO.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Español", "Inglés", "Francés", "Alemán", "Italiano", "Portugués" }));
+
+        IdiomaD.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        IdiomaD.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Español", "Inglés", "Francés", "Alemán", "Italiano", "Portugués" }));
+        IdiomaD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                IdiomaDActionPerformed(evt);
+            }
+        });
+
+        IdiomaOText.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        IdiomaOText.setText("Idioma de Origen:");
+
+        IdiomaDText.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        IdiomaDText.setText("Idioma de Destino:");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(150, Short.MAX_VALUE)
-                .addComponent(BuscardorT, javax.swing.GroupLayout.PREFERRED_SIZE, 643, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(45, 45, 45)
-                .addComponent(Buscar)
-                .addGap(155, 155, 155))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(81, 81, 81)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 536, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(64, 64, 64)
+                        .addComponent(Limpiar))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(132, 132, 132)
+                                .addComponent(IdiomaOText, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(IdiomaO, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addGap(128, 128, 128)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 474, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(117, 117, 117)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(IdiomaDText, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(30, 30, 30)
+                                .addComponent(IdiomaD, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 494, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(235, 235, 235)
+                        .addComponent(Traducir, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(128, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(71, 71, 71)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(Buscar)
-                    .addComponent(BuscardorT, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 91, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(87, 87, 87))
+                .addGap(62, 62, 62)
+                .addComponent(Limpiar)
+                .addGap(57, 57, 57)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(IdiomaOText)
+                    .addComponent(IdiomaO, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(IdiomaD, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(IdiomaDText))
+                .addGap(46, 46, 46)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2))
+                .addGap(29, 29, 29)
+                .addComponent(Traducir)
+                .addContainerGap(70, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -109,9 +207,68 @@ public class InterfazHTTP extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void BuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BuscarMouseClicked
+    private void TraducirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TraducirMouseClicked
+        
+        // Obtener el texto ingresado
+    String texto = TextoOriginal.getText();
+
+    // Obtener los idiomas seleccionados
+    String idiomaOrigen = IdiomaO.getSelectedItem().toString();
+    String idiomaDestino = IdiomaD.getSelectedItem().toString();
+
+    // Validar que no estén vacíos y que sean diferentes
+    if (texto.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Ingrese un texto para traducir.", "Error", JOptionPane.WARNING_MESSAGE);
+        return;
+    }
+
+    if (idiomaOrigen.equals(idiomaDestino)) {
+        JOptionPane.showMessageDialog(this, "Seleccione diferentes idiomas para traducir.", "Error", JOptionPane.WARNING_MESSAGE);
+        return;
+    }
+
+    // Obtener los códigos de idioma
+    String codigoOrigen = Language.getLanguages().get(idiomaOrigen);
+    String codigoDestino = Language.getLanguages().get(idiomaDestino);
+
+    // Llamar al servicio de traducción
+    String traduccion = TranslatorService.translate(texto, codigoOrigen, codigoDestino);
+
+    // Mostrar la traducción en la caja de texto
+    TextoTraducido.setText(traduccion);
+    TextoTraducido.setEditable(false); // Evitar edición del resultado
+    }//GEN-LAST:event_TraducirMouseClicked
+
+    private void LimpiarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LimpiarMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_BuscarMouseClicked
+    }//GEN-LAST:event_LimpiarMouseClicked
+
+    private void LimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LimpiarActionPerformed
+        
+        // Restablecer JComboBox al primer elemento
+    IdiomaO.setSelectedIndex(0);
+    IdiomaD.setSelectedIndex(0);
+
+    // Limpiar JTextArea
+    TextoOriginal.setText("");
+    TextoTraducido.setText("");
+
+    // Bloquear el JTextArea de traducción para evitar que el usuario escriba en él
+    TextoTraducido.setEditable(false);
+    }//GEN-LAST:event_LimpiarActionPerformed
+
+    private void SalirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SalirMouseClicked
+       
+         System.exit(0);
+    }//GEN-LAST:event_SalirMouseClicked
+
+    private void SalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalirActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_SalirActionPerformed
+
+    private void IdiomaDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IdiomaDActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_IdiomaDActionPerformed
 
     /**
      * @param args the command line arguments
@@ -149,11 +306,18 @@ public class InterfazHTTP extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton Buscar;
-    private javax.swing.JTextField BuscardorT;
-    private javax.swing.JTextArea InformacionPeli;
+    private javax.swing.JComboBox<String> IdiomaD;
+    private javax.swing.JLabel IdiomaDText;
+    private javax.swing.JComboBox<String> IdiomaO;
+    private javax.swing.JLabel IdiomaOText;
+    private javax.swing.JButton Limpiar;
+    private javax.swing.JButton Salir;
+    private javax.swing.JTextArea TextoOriginal;
+    private javax.swing.JTextArea TextoTraducido;
+    private javax.swing.JButton Traducir;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     // End of variables declaration//GEN-END:variables
 }
