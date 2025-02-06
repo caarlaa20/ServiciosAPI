@@ -39,7 +39,10 @@ public class InterfazFTP extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         AreaArchivos = new javax.swing.JTextArea();
         jPanel3 = new javax.swing.JPanel();
-        Conectar1 = new javax.swing.JButton();
+        Listar = new javax.swing.JButton();
+        Subir = new javax.swing.JButton();
+        Descargar = new javax.swing.JButton();
+        Limpiar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -119,12 +122,39 @@ public class InterfazFTP extends javax.swing.JFrame {
             .addGap(0, 100, Short.MAX_VALUE)
         );
 
-        Conectar1.setBackground(new java.awt.Color(204, 204, 255));
-        Conectar1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        Conectar1.setText("Conectar");
-        Conectar1.addMouseListener(new java.awt.event.MouseAdapter() {
+        Listar.setBackground(new java.awt.Color(204, 204, 255));
+        Listar.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        Listar.setText("Listar");
+        Listar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                Conectar1MouseClicked(evt);
+                ListarMouseClicked(evt);
+            }
+        });
+
+        Subir.setBackground(new java.awt.Color(204, 204, 255));
+        Subir.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        Subir.setText("Subir");
+        Subir.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                SubirMouseClicked(evt);
+            }
+        });
+
+        Descargar.setBackground(new java.awt.Color(204, 204, 255));
+        Descargar.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        Descargar.setText("Descargar");
+        Descargar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                DescargarMouseClicked(evt);
+            }
+        });
+
+        Limpiar.setBackground(new java.awt.Color(204, 204, 255));
+        Limpiar.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        Limpiar.setText("Limpiar");
+        Limpiar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                LimpiarMouseClicked(evt);
             }
         });
 
@@ -149,18 +179,22 @@ public class InterfazFTP extends javax.swing.JFrame {
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 387, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
                         .addComponent(Usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(86, 86, 86)
                         .addComponent(PasswordT)
                         .addGap(18, 18, 18)
                         .addComponent(Password, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(136, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(Conectar1, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(148, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(Listar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Subir, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Descargar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Limpiar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(98, 98, 98))))
         );
         jPanel1Layout.setVerticalGroup(
@@ -181,8 +215,15 @@ public class InterfazFTP extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Conectar1, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 375, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(Listar, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(30, 30, 30)
+                        .addComponent(Subir, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(30, 30, 30)
+                        .addComponent(Descargar, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(30, 30, 30)
+                        .addComponent(Limpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 350, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -203,14 +244,26 @@ public class InterfazFTP extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_ConectarMouseClicked
 
-    private void Conectar1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Conectar1MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Conectar1MouseClicked
+    private void ListarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ListarMouseClicked
+        
+    }//GEN-LAST:event_ListarMouseClicked
 
     private void SalirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SalirMouseClicked
        
          System.exit(0);
     }//GEN-LAST:event_SalirMouseClicked
+
+    private void SubirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SubirMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_SubirMouseClicked
+
+    private void DescargarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DescargarMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_DescargarMouseClicked
+
+    private void LimpiarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LimpiarMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_LimpiarMouseClicked
 
     /**
      * @param args the command line arguments
@@ -250,12 +303,15 @@ public class InterfazFTP extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea AreaArchivos;
     private javax.swing.JButton Conectar;
-    private javax.swing.JButton Conectar1;
+    private javax.swing.JButton Descargar;
+    private javax.swing.JButton Limpiar;
+    private javax.swing.JButton Listar;
     private javax.swing.JTextField Password;
     private javax.swing.JLabel PasswordT;
     private javax.swing.JButton Salir;
     private javax.swing.JTextField Servidor;
     private javax.swing.JLabel ServidorT;
+    private javax.swing.JButton Subir;
     private javax.swing.JTextField Usuario;
     private javax.swing.JLabel UsuarioT;
     private javax.swing.JPanel jPanel1;
