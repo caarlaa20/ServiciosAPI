@@ -77,18 +77,24 @@ public class InterfazFTP extends javax.swing.JFrame {
     }
 
     private void uploadFileToFTP(File file) {
-        try (FileInputStream fis = new FileInputStream(file)) {
-            boolean uploaded = ftpClient.storeFile(file.getName(), fis);
-            if (uploaded) {
-                SwingUtilities.invokeLater(() -> mostrarOpcionVerDocumento(file));
-            } else {
-                SwingUtilities.invokeLater(() -> JOptionPane.showMessageDialog(this, "Error al subir archivo."));
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-            SwingUtilities.invokeLater(() -> JOptionPane.showMessageDialog(this, "Error de conexión al subir archivo."));
+    try (FileInputStream fis = new FileInputStream(file)) {
+        boolean uploaded = ftpClient.storeFile(file.getName(), fis);
+        if (uploaded) {
+            SwingUtilities.invokeLater(() -> mostrarOpcionVerDocumento(file));
+            System.out.println("Archivo subido con éxito");
+        } else {
+            SwingUtilities.invokeLater(() -> JOptionPane.showMessageDialog(this, "Error al subir archivo."));
+            System.out.println("Error al subir archivo: El archivo no se subió.");
+            // Mostrar más detalles
+            String replyString = ftpClient.getReplyString();
+            System.out.println("Respuesta del servidor FTP: " + replyString);
         }
+    } catch (IOException e) {
+        e.printStackTrace();
+        System.out.println("Error al subir archivo: " + e.getMessage());
+        SwingUtilities.invokeLater(() -> JOptionPane.showMessageDialog(this, "Error de conexión al subir archivo."));
     }
+}
 
     private void mostrarOpcionVerDocumento(File file) {
         int option = JOptionPane.showOptionDialog(this, "El archivo se ha subido con éxito.",
@@ -117,7 +123,13 @@ public class InterfazFTP extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(255, 204, 204));
 
+        SUBIR.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         SUBIR.setText("SUBIR");
+        SUBIR.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                SUBIRMouseClicked(evt);
+            }
+        });
 
         Título.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         Título.setText("Estás conectado, a continuación sube tu archivo");
@@ -127,23 +139,23 @@ public class InterfazFTP extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(158, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(Título)
-                        .addGap(111, 111, 111))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(SUBIR)
-                        .addGap(273, 273, 273))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(121, 121, 121)
+                        .addComponent(Título))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(238, 238, 238)
+                        .addComponent(SUBIR)))
+                .addContainerGap(148, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(41, 41, 41)
+                .addGap(78, 78, 78)
                 .addComponent(Título)
-                .addGap(84, 84, 84)
+                .addGap(65, 65, 65)
                 .addComponent(SUBIR)
-                .addContainerGap(258, Short.MAX_VALUE))
+                .addContainerGap(208, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -163,6 +175,11 @@ public class InterfazFTP extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void SUBIRMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SUBIRMouseClicked
+        System.out.println("Botón SUBIR presionado");
+        subirArchivo();
+    }//GEN-LAST:event_SUBIRMouseClicked
 
     /**
      * @param args the command line arguments
